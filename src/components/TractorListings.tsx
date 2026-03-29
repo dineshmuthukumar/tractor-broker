@@ -68,7 +68,7 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
       variants={variants}
       whileHover={{ y: -8 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-xl shadow-lg overflow-hidden"
+      className={`bg-white rounded-xl shadow-lg overflow-hidden ${tractor.damaged ? 'ring-2 ring-red-400' : ''}`}
       role="listitem"
       aria-label={`${tractor.name} - ${conditionLabel} நிலை, ₹${tractor.price.toLocaleString()}`}
     >
@@ -85,6 +85,15 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
           transition={{ duration: 0.5 }}
           loading="lazy"
         />
+        {tractor.damaged && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg"
+          >
+            🔧 பழுதானது
+          </motion.div>
+        )}
         <motion.div
           className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
           initial={{ opacity: 0 }}
@@ -118,13 +127,25 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
           <p><span className="font-medium">ஆண்டு:</span> {tractor.year}</p>
           <p><span className="font-medium">ஓட்ட நேரம்:</span> {tractor.hours.toLocaleString()} மணி</p>
           <p><span className="font-medium">இடம்:</span> {tractor.location}</p>
+          {tractor.damaged && tractor.damageNote && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="mt-3 p-3 bg-orange-50 border border-orange-200 rounded-lg"
+            >
+              <p className="text-sm text-orange-800">
+                <span className="font-bold">⚠️ பழுது விவரம்:</span> {tractor.damageNote}
+              </p>
+            </motion.div>
+          )}
         </motion.div>
         <div className="flex justify-between items-center pt-4 border-t">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-2xl font-bold text-green-600"
+            className={`text-2xl font-bold ${tractor.damaged ? 'text-orange-600' : 'text-green-600'}`}
             aria-label={`விலை: ₹${tractor.price.toLocaleString()}`}
           >
             ₹{tractor.price.toLocaleString()}
@@ -132,7 +153,7 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition cursor-pointer"
+            className={`${tractor.damaged ? 'bg-orange-600 hover:bg-orange-700' : 'bg-green-600 hover:bg-green-700'} text-white px-4 py-2 rounded-lg transition cursor-pointer`}
             aria-label={`${tractor.name} பற்றி விசாரிக்கவும்`}
           >
             விசாரிக்கவும்

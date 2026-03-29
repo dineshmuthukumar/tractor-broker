@@ -17,6 +17,8 @@ export interface Tractor {
   condition: 'Excellent' | 'Good' | 'Fair'
   image: string
   location: string
+  damaged?: boolean
+  damageNote?: string
 }
 
 const mockTractors: Tractor[] = [
@@ -199,6 +201,76 @@ const mockTractors: Tractor[] = [
     condition: 'Fair',
     image: 'https://images.unsplash.com/photo-1565514020125-9d62939b0320?w=800',
     location: 'கள்ளக்குறிச்சி, தமிழ்நாடு'
+  },
+  {
+    id: 16,
+    name: 'ஜான் டியர் 5105 (பழுதானது)',
+    brand: 'John Deere',
+    model: '5105',
+    year: 2018,
+    hours: 3200,
+    price: 280000,
+    condition: 'Fair',
+    image: 'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800',
+    location: 'திருவண்ணாமலை, தமிழ்நாடு',
+    damaged: true,
+    damageNote: 'எஞ்சின் பழுது - பாகங்களுக்கு ஏற்றது'
+  },
+  {
+    id: 17,
+    name: 'சுவராஜ் 855 (ரிப்பேர்)',
+    brand: 'Swaraj',
+    model: '855 FE',
+    year: 2017,
+    hours: 2800,
+    price: 220000,
+    condition: 'Fair',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+    location: 'விழுத்துவாய், தமிழ்நாடு',
+    damaged: true,
+    damageNote: 'கியர் பாக்ஸ் பழுது - பாகங்கள் பொருத்த வேண்டும்'
+  },
+  {
+    id: 18,
+    name: 'மக்கார்மிக் 5450 (பழுதானது)',
+    brand: 'Massey Ferguson',
+    model: '5450',
+    year: 2016,
+    hours: 4500,
+    price: 195000,
+    condition: 'Fair',
+    image: 'https://images.unsplash.com/photo-1574943320219-55ed5d9268d2?w=800',
+    location: 'ராமநாதபுரம், தமிழ்நாடு',
+    damaged: true,
+    damageNote: 'ஹைட்ராலிக் பழுது - பாகங்கள் பொருத்தப்பட வேண்டும்'
+  },
+  {
+    id: 19,
+    name: 'மஹிந்திரா 475 (ஸ்கிராப்)',
+    brand: 'Mahindra',
+    model: '475',
+    year: 2015,
+    hours: 5200,
+    price: 150000,
+    condition: 'Fair',
+    image: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800',
+    location: 'கடலூர், தமிழ்நாடு',
+    damaged: true,
+    damageNote: 'ஸ்டீயரிங் மற்றும் பிரேக் பழுது - பாகங்களுக்கு'
+  },
+  {
+    id: 20,
+    name: 'டான்ஃபர்ட் 6028 (பழுதானது)',
+    brand: 'Tafe',
+    model: '6028',
+    year: 2017,
+    hours: 3800,
+    price: 210000,
+    condition: 'Fair',
+    image: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800',
+    location: 'புதுக்கோட்டை, தமிழ்நாடு',
+    damaged: true,
+    damageNote: 'PTO ஷாஃப்ட் பழுது - மாற்று பாகம் தேவை'
   }
 ]
 
