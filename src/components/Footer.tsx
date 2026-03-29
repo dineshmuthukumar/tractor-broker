@@ -1,10 +1,15 @@
 import { motion } from 'framer-motion'
 
 export default function Footer() {
-  const footerLinks = ['முகப்பு', 'பட்டியல்கள்', 'சேவைகள்', 'எங்களை பற்றி']
+  const footerLinks = [
+    { text: 'முகப்பு', href: '#', label: 'முகப்பு பக்கத்திற்கு செல்க' },
+    { text: 'பட்டியல்கள்', href: '#listings', label: 'ட்ராக்டர் பட்டியல்களுக்கு செல்க' },
+    { text: 'சேவைகள்', href: '#', label: 'சேவைகள் பக்கத்திற்கு செல்க' },
+    { text: 'எங்களை பற்றி', href: '#', label: 'எங்களை பற்றி பக்கத்திற்கு செல்க' }
+  ]
 
   return (
-    <footer id="about" className="bg-gray-800 text-white py-12">
+    <footer id="about" className="bg-gray-800 text-white py-12" role="contentinfo">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -31,25 +36,28 @@ export default function Footer() {
             transition={{ delay: 0.3, duration: 0.5 }}
           >
             <h4 className="font-semibold mb-4">விரைவு இணைப்புகள்</h4>
-            <ul className="space-y-2 text-gray-400">
-              {footerLinks.map((link, index) => (
-                <motion.li
-                  key={link}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
-                >
-                  <motion.a
-                    href={link === 'முகப்பு' ? '#' : link === 'பட்டியல்கள்' ? '#listings' : '#'}
-                    whileHover={{ x: 5, color: '#fff' }}
-                    className="transition cursor-pointer inline-block"
+            <nav aria-label="அடிச்செயலி வழிசெலுத்தல்">
+              <ul className="space-y-2 text-gray-400">
+                {footerLinks.map((link, index) => (
+                  <motion.li
+                    key={link.text}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
                   >
-                    {link}
-                  </motion.a>
-                </motion.li>
-              ))}
-            </ul>
+                    <motion.a
+                      href={link.href}
+                      whileHover={{ x: 5, color: '#fff' }}
+                      className="transition cursor-pointer inline-block"
+                      aria-label={link.label}
+                    >
+                      {link.text}
+                    </motion.a>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 30 }}
@@ -58,36 +66,37 @@ export default function Footer() {
             transition={{ delay: 0.4, duration: 0.5 }}
           >
             <h4 className="font-semibold mb-4">தொடர்பு</h4>
-            <ul className="space-y-2 text-gray-400">
-              <motion.li
+            <address className="not-italic space-y-2 text-gray-400">
+              <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
-                className="hover:text-white transition cursor-pointer"
+                className="hover:text-white transition"
               >
-                👤 ஞானசேகரன்
-              </motion.li>
-              <motion.li
+                <span aria-hidden="true">👤</span> <span className="sr-only">பெயர்:</span> ஞானசேகரன்
+              </motion.p>
+              <motion.a
+                href="tel:+919597716735"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.55 }}
                 whileHover={{ scale: 1.05 }}
-                className="hover:text-white transition cursor-pointer"
+                className="hover:text-white transition block"
               >
-                📞 9597716735
-              </motion.li>
-              <motion.li
+                <span aria-hidden="true">📞</span> 9597716735
+              </motion.a>
+              <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
-                className="hover:text-white transition cursor-pointer"
+                className="hover:text-white transition"
               >
-                📍 தமிழ்நாடு, இந்தியா
-              </motion.li>
-            </ul>
+                <span aria-hidden="true">📍</span> தமிழ்நாடு, இந்தியா
+              </motion.p>
+            </address>
           </motion.div>
         </motion.div>
         <motion.div

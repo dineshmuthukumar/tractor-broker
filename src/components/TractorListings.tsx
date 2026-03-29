@@ -29,7 +29,7 @@ const itemVariants = {
 
 export default function TractorListings({ tractors }: TractorListingsProps) {
   return (
-    <section id="listings" className="py-16">
+    <section id="listings" className="py-16" aria-labelledby="listings-heading">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -37,7 +37,7 @@ export default function TractorListings({ tractors }: TractorListingsProps) {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-800">சிறப்பு ட்ராக்டர்கள்</h2>
+          <h2 id="listings-heading" className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-800">சிறப்பு ட்ராக்டர்கள்</h2>
           <p className="text-center text-gray-600 mb-12">தரமான விவசாய உபகரணங்களின் தேர்வை காணுங்கள்</p>
         </motion.div>
 
@@ -47,6 +47,8 @@ export default function TractorListings({ tractors }: TractorListingsProps) {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          role="list"
+          aria-label="ட்ராக்டர் பட்டியல்"
         >
           {tractors.map((tractor) => (
             <TractorCard key={tractor.id} tractor={tractor} variants={itemVariants} />
@@ -58,12 +60,17 @@ export default function TractorListings({ tractors }: TractorListingsProps) {
 }
 
 function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }) {
+  const conditionLabel = tractor.condition === 'Excellent' ? 'சிறப்பானது' :
+                        tractor.condition === 'Good' ? 'நல்லது' : 'நியாயமானது'
+
   return (
-    <motion.div
+    <motion.article
       variants={variants}
       whileHover={{ y: -8 }}
       transition={{ duration: 0.3 }}
       className="bg-white rounded-xl shadow-lg overflow-hidden"
+      role="listitem"
+      aria-label={`${tractor.name} - ${conditionLabel} நிலை, ₹${tractor.price.toLocaleString()}`}
     >
       <motion.div
         className="h-48 overflow-hidden relative"
@@ -72,20 +79,22 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
       >
         <motion.img
           src={tractor.image}
-          alt={tractor.name}
+          alt={`${tractor.name} - ${tractor.brand} ${tractor.model} ${tractor.year} மாடல்`}
           className="w-full h-full object-cover"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.5 }}
+          loading="lazy"
         />
         <motion.div
           className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
           initial={{ opacity: 0 }}
           whileHover={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
+          aria-hidden="true"
         />
       </motion.div>
       <div className="p-6">
-        <div className="flex justify-between items-start mb-2">
+        <header className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-bold text-gray-800">{tractor.name}</h3>
           <motion.span
             whileHover={{ scale: 1.1 }}
@@ -94,11 +103,12 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
               tractor.condition === 'Good' ? 'bg-yellow-100 text-yellow-800' :
               'bg-red-100 text-red-800'
             }`}
+            role="status"
+            aria-label={`நிலை: ${conditionLabel}`}
           >
-            {tractor.condition === 'Excellent' ? 'சிறப்பானது' :
-             tractor.condition === 'Good' ? 'நல்லது' : 'நியாயமானது'}
+            {conditionLabel}
           </motion.span>
-        </div>
+        </header>
         <motion.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -115,6 +125,7 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
             className="text-2xl font-bold text-green-600"
+            aria-label={`விலை: ₹${tractor.price.toLocaleString()}`}
           >
             ₹{tractor.price.toLocaleString()}
           </motion.span>
@@ -122,11 +133,12 @@ function TractorCard({ tractor, variants }: { tractor: Tractor, variants?: any }
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition cursor-pointer"
+            aria-label={`${tractor.name} பற்றி விசாரிக்கவும்`}
           >
             விசாரிக்கவும்
           </motion.button>
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }

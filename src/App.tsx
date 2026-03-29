@@ -99,8 +99,10 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header onContactClick={() => setShowContact(true)} />
-      <Hero />
-      <TractorListings tractors={mockTractors} />
+      <main>
+        <Hero />
+        <TractorListings tractors={mockTractors} />
+      </main>
       {showContact && (
         <ContactForm onClose={() => setShowContact(false)} />
       )}
