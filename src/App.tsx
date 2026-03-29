@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import TractorListings from './components/TractorListings'
 import ContactForm from './components/ContactForm'
 import Footer from './components/Footer'
+import SEOTracker from './components/SEOTracker'
 
 export interface Tractor {
   id: number
@@ -203,10 +204,29 @@ const mockTractors: Tractor[] = [
 
 function App() {
   const [showContact, setShowContact] = useState(false)
+  const [showSEOTracker, setShowSEOTracker] = useState(false)
+
+  if (showSEOTracker) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header
+          onContactClick={() => setShowContact(true)}
+          onSEOTrackerClick={() => setShowSEOTracker(false)}
+        />
+        <SEOTracker />
+        {showContact && (
+          <ContactForm onClose={() => setShowContact(false)} />
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header onContactClick={() => setShowContact(true)} />
+      <Header
+        onContactClick={() => setShowContact(true)}
+        onSEOTrackerClick={() => setShowSEOTracker(true)}
+      />
       <main>
         <Hero />
         <TractorListings tractors={mockTractors} />

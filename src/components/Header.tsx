@@ -2,9 +2,16 @@ import { motion } from 'framer-motion'
 
 interface HeaderProps {
   onContactClick: () => void
+  onSEOTrackerClick: () => void
 }
 
-export default function Header({ onContactClick }: HeaderProps) {
+export default function Header({ onContactClick, onSEOTrackerClick }: HeaderProps) {
+  const navItems = [
+    { text: 'முகப்பு', href: '#', label: 'முகப்பு பக்கத்திற்கு செல்க' },
+    { text: 'பட்டியல்கள்', href: '#listings', label: 'ட்ராக்டர் பட்டியல்களுக்கு செல்க' },
+    { text: 'எங்களை பற்றி', href: '#about', label: 'எங்களை பற்றி பகுதிக்கு செல்க' },
+  ]
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -35,11 +42,7 @@ export default function Header({ onContactClick }: HeaderProps) {
           <span className="text-xl md:text-2xl font-bold">ஞானசேகரன் ட்ராக்டர் தரகர்</span>
         </motion.a>
         <nav className="hidden md:flex space-x-6" role="navigation" aria-label="முக்கிய வழிசெலுத்தல்">
-          {[
-            { text: 'முகப்பு', href: '#', label: 'முகப்பு பக்கத்திற்கு செல்க' },
-            { text: 'பட்டியல்கள்', href: '#listings', label: 'ட்ராக்டர் பட்டியல்களுக்கு செல்க' },
-            { text: 'எங்களை பற்றி', href: '#about', label: 'எங்களை பற்றி பகுதிக்கு செல்க' }
-          ].map((item, index) => (
+          {navItems.map((item, index) => (
             <motion.a
               key={item.text}
               href={item.href}
@@ -54,10 +57,21 @@ export default function Header({ onContactClick }: HeaderProps) {
             </motion.a>
           ))}
           <motion.button
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.4 }}
+            whileHover={{ y: -2, color: '#86efac' }}
+            onClick={onSEOTrackerClick}
+            className="transition cursor-pointer bg-transparent border-none text-white"
+            aria-label="எஸ்.இ.ஓ கண்காணிப்பு"
+          >
+            எஸ்.இ.ஓ
+          </motion.button>
+          <motion.button
             id="contact-btn"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.4 }}
+            transition={{ delay: 0.7, duration: 0.4 }}
             whileHover={{ scale: 1.05, backgroundColor: '#16a34a' }}
             whileTap={{ scale: 0.95 }}
             onClick={onContactClick}
